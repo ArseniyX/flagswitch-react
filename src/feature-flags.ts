@@ -6,7 +6,7 @@ import { FeatureDefinition, FlagSwitchGlobalOptions } from "./types";
 export const loadFeatures =
     (options: FlagSwitchGlobalOptions) =>
     (featureDefinition?: FeatureDefinition) => {
-        const featurePaths = getFeaturePaths();
+        const featurePaths = getFeaturePaths(Object.keys(featureDefinition.split));
 
         const featureModules = getFeatureModules(
             featurePaths,
