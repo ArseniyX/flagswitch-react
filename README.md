@@ -1,6 +1,6 @@
 # Flag Switch React
 
-A library for feature flagging in React applications. It allows you to easily load and manage feature flags based on their version and split percentages.
+A feature flagging library for React applications enabling seamless loading and management of feature flags based on versioning and split percentages.
 
 ## Installation
 
@@ -10,12 +10,12 @@ npm install flagswitch-react
 
 ## Usage
 
-### Basic Usage
+### Basic Example
 ```tsx
 // index.ts
 import { flagSwitch } from "flagswitch-react";
 
-const loadFeatures = flagSwitch(
+const loadFeatures = flagSwitch({
     /* global options */
     [featureName]: {
         /* feature definition */
@@ -23,7 +23,6 @@ const loadFeatures = flagSwitch(
 );
 
 const CheckoutFlow = loadFeatures({
-    /* feature definition */
     split: {
         "single-step-checkout": 30,
         "multi-step-checkout": 70,
@@ -31,13 +30,13 @@ const CheckoutFlow = loadFeatures({
 });
 ```
 
-**Ensure that the feature components located under /src in the same directory as the `flagSwitch` function call and exported as default.**
+**Make sure feature components reside under /src in the same directory as the `flagSwitch` invocation and are exported as default.**
 
-### Advanced Usage
+### Advanced Example
 
 #### Global Options
 
-You can pass global options to the `flagSwitch` function to customize the behavior of the library.
+Customize the library's behavior by passing global options to the `flagSwitch` function.
 
 ```tsx
 import { flagSwitch } from "flagswitch-react";
@@ -53,15 +52,11 @@ const loadFeatures = flagSwitch({
 
 #### Feature Definition
 
-The `flagSwitch` function takes a single argument, which is an object that defines the features to be loaded.
-
-Each key in the object is the name of the feature, and the value is an object that defines the feature's behavior.
+Pass an object to `flagSwitch` defining the features to load, where each key represents a feature name and its value dictates the feature's behavior.
 
 ##### `split`
 
-This property is optional and allows you to specify the percentage split between different versions of the feature.
-
-If this property is not provided, the feature will be loaded with an even split across all versions.
+Define the percentage split between different feature versions. Without this, the library defaults to an even distribution across versions.
 
 Example:
 
@@ -76,9 +71,7 @@ loadFeatures({
 
 ##### `version`
 
-This property is optional and allows you to specify the version of the feature to be loaded.
-
-If this property is not provided, the library will automatically choose a version based on the `split` property.
+Specify a feature version to load. If omitted, the version is chosen automatically based on the `split` property.
 
 Example:
 
@@ -90,17 +83,18 @@ loadFeatures({
 
 ## Examples
 
-Check out the [examples](https://github.com/arseniyx/flagswitch-react/tree/main/examples) folder for more usage examples.
+Explore additional examples in the [examples](https://github.com/arseniyx/flagswitch-react/tree/main/examples) folder.
 
 ## Coming Soon
 
--   Support for Webpack
--   Dynamic fetching of feature flags
--   Support for multiple feature versions with name_version_metadata pattern
+- Support for Webpack
+- Dynamic feature flag fetching
+- Support organizations and multiple environments
+- Multiple feature versions supporting name_version_metadata pattern
 
 ## Contributing
 
-Contributions are welcome! Please feel free to open an issue or submit a pull request.
+Contributions are welcome! Please open an issue or submit a pull request.
 
 ## License
 
