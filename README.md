@@ -31,7 +31,7 @@ const CheckoutFlow = loadFeatures({
 });
 ```
 
-**Ensure that the feature components are located in the same directory as the `flagSwitch` function call and exported as default.**
+**Ensure that the feature components located under /src in the same directory as the `flagSwitch` function call and exported as default.**
 
 ### Advanced Usage
 
