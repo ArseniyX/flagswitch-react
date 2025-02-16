@@ -7,5 +7,5 @@
         "esModuleInterop": true,
         "strict": false
     },
-    "include": ["src/**/*", "globals.d.ts"]
+    "include": ["src/**/*"]
 }
