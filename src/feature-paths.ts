@@ -6,7 +6,7 @@ export const getFeaturePaths = (features: string[]) => {
     if (import.meta.url) {
         // Glob all feature files first
         const allPaths = import.meta.glob<any>(
-            "/src/features/**/*.{tsx,jsx}"
+            "/src/**/*.{tsx,jsx}"
         );
 
         const components = Object.keys(allPaths).reduce((acc, path) => {
