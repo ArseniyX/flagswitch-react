@@ -92,6 +92,12 @@ loadFeatures({
 
 Check out the [examples](https://github.com/arseniyx/flagswitch-react/tree/main/examples) folder for more usage examples.
 
+## Coming Soon
+
+-   Support for Webpack
+-   Dynamic fetching of feature flags
+-   Support for multiple feature versions with name_version_metadata pattern
+
 ## Contributing
 
 Contributions are welcome! Please feel free to open an issue or submit a pull request.
