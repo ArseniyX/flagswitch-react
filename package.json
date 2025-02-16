@@ -3,6 +3,7 @@
   "version": "1.0.2",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "author": "Arseniy Klibaner",
   "scripts": {
     "test": "vitest",
     "coverage": "vitest run --coverage",
@@ -15,7 +16,6 @@
   "files": [
     "dist/**/*"
   ],
-  "author": "",
   "license": "MIT",
   "description": "",
   "peerDependencies": {
