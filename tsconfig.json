@@ -1,0 +1,11 @@
+{
+    "compilerOptions": {
+        "module": "esnext", // or "es2020", "node16", or "node18"
+        "target": "esnext", // Or a suitable target like "es2020"
+        "types": ["vite/client"],
+        "moduleResolution": "node",
+        "esModuleInterop": true,
+        "strict": false
+    },
+    "include": ["src/**/*", "globals.d.ts"]
+}
