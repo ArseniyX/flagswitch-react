@@ -4,6 +4,10 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "author": "Arseniy Klibaner",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/arseniyx/flagswitch-react.git"
+  },
   "scripts": {
     "test": "vitest",
     "coverage": "vitest run --coverage",
