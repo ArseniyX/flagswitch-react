@@ -1,22 +1,19 @@
 import { lazy } from "react";
 
-type FeaturePathOptions = {
-    postfix?: string;
-    delimiter?: string;
-};
-
-export const getFeaturePaths = () => {
+export const getFeaturePaths = (features: string[]) => {
     // Check for Vite's import.meta.glob
     // TODO: find better way to check for Vite
     if (import.meta.url) {
         // Glob all feature files first
         const allPaths = import.meta.glob<any>(
-            "/src/features/**/*.feature.{tsx,jsx}"
+            "/src/features/**/*.{tsx,jsx}"
         );
 
         const components = Object.keys(allPaths).reduce((acc, path) => {
             const componentName =
                 path.split("/").pop()?.replace(".tsx", "") || "";
+            const isRelevant = features.includes(componentName.replace('.feature', ""));
+            if (!isRelevant) return acc;
             acc[componentName] = lazy(() => allPaths[path]());
             return acc;
         }, {} as Record<string, React.LazyExoticComponent<React.ComponentType<any>>>);
