@@ -17,9 +17,6 @@ import { flagSwitch } from "flagswitch-react";
 
 const loadFeatures = flagSwitch({
     /* global options */
-    [featureName]: {
-        /* feature definition */
-    }
 );
 
 const CheckoutFlow = loadFeatures({
@@ -47,6 +44,12 @@ const loadFeatures = flagSwitch({
         delimiter: ".",
     },
     namePattern: /(?<name>[^\/]+)$/,
+    flags: {
+        /* global flags */
+        [featureName]: {
+            /* feature definition */
+        }
+    }
 });
 ```
 
