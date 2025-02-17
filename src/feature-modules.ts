@@ -8,7 +8,6 @@ export const getFeatureModules = (
         const version = match ? match.groups?.version : null;
         const metadata = match ? match.groups?.metadata : null;
         return {
-            path,
             component: featurePaths[path],
             name: name?.replace('.feature', ""),
             ...(version && { version }),
