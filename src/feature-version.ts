@@ -2,7 +2,6 @@ import { FeatureDefinition } from "./types";
 
 export const getFeatureVersion = (
     availableFeatures: {
-        path: string;
         component: any;
         name: string;
         version?: string;
