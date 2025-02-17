@@ -1,6 +1,10 @@
 # FlagSwitch React
 
-FlagSwitch React is a feature flagging utility for React applications that dynamically loads and manages feature components based on versioning and traffic splits. Designed to simplify progressive rollouts and A/B testing, it allows you to experiment and iterate on features with minimal friction.
+FlagSwitch React is a feature flagging utility for React applications that dynamically loads and manages feature components based on versioning and traffic splits.
+
+## Why FlagSwitch React?
+
+FlagSwitch React is designed to simplify the process of managing feature flags in a React application. It provides a simple and intuitive API for loading and managing feature components based on versioning and traffic splits. This utility is particularly useful for progressive rollouts and A/B testing, where you can experiment and iterate on features with minimal friction.
 
 ---
 
