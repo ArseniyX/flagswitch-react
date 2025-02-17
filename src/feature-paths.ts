@@ -1,18 +1,23 @@
 import { lazy } from "react";
 
-export const getFeaturePaths = (features: string[]) => {
+export const getFeaturePaths = (
+    features: string[],
+    featuresFolderEnabled: boolean
+) => {
     // Check for Vite's import.meta.glob
     // TODO: find better way to check for Vite
     if (import.meta.url) {
         // Glob all feature files first
-        const allPaths = import.meta.glob<any>(
-            "/src/**/*.{tsx,jsx}"
-        );
+        const allPaths = featuresFolderEnabled
+            ? import.meta.glob<any>("/src/features/**/*.{tsx,jsx}")
+            : import.meta.glob<any>("/src/**/*.{tsx,jsx}");
 
         const components = Object.keys(allPaths).reduce((acc, path) => {
             const componentName =
                 path.split("/").pop()?.replace(".tsx", "") || "";
-            const isRelevant = features.includes(componentName.replace('.feature', ""));
+            const isRelevant = features.includes(
+                componentName.replace(".feature", "")
+            );
             if (!isRelevant) return acc;
             acc[componentName] = lazy(() => allPaths[path]());
             return acc;
