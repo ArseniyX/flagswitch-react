@@ -1,12 +1,19 @@
 import { getFeatureVersion } from "./feature-version";
 import { getFeatureModules } from "./feature-modules";
 import { getFeaturePaths } from "./feature-paths";
-import { FeatureDefinition, FlagSwitchGlobalOptions } from "./types";
+import { FlagSwitchGlobalOptions } from "./types";
+import { Fragment } from "react";
 
 export const loadFeatures =
-    (options: FlagSwitchGlobalOptions) =>
-    (featureDefinition?: FeatureDefinition) => {
-        const featurePaths = getFeaturePaths(Object.keys(featureDefinition.split));
+    (options: FlagSwitchGlobalOptions) => (featureName?: string) => {
+        const features = Object.keys(options.features[featureName].split);
+        const featureOptions = options.features[featureName];
+
+        if (!featureOptions.enabled) {
+            return Fragment;
+        }
+
+        const featurePaths = getFeaturePaths(features, options.featuresFolderEnabled);
 
         const featureModules = getFeatureModules(
             featurePaths,
@@ -15,7 +22,7 @@ export const loadFeatures =
 
         const featureVersion = getFeatureVersion(
             featureModules,
-            featureDefinition
+            featureOptions
         );
 
         return featureVersion.component as React.LazyExoticComponent<
