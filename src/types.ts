@@ -1,13 +1,23 @@
 export type FlagSwitchGlobalOptions = {
-    path?: {
-        postfix?: string;
-        delimiter?: string;
-    };
+    /**
+     * Enables the features folder.
+     * @default true
+     */
+    featuresFolderEnabled?: boolean;
+    /**
+     * Path-related options.
+     * @default /(?<name>[^\/]+)$/
+     * @example /(?<name>[^\/]+)$/
+     */
     namePattern?: RegExp;
-    flags?: {
+    /**
+     * An object where keys are feature names and values are their definitions.
+     * @example { CheckoutFlow: { enabled: true, split: { MultiStepCheckout: 30, SingleStepCheckout: 70 } } }
+     */
+    features?: {
         [featureName: string]: FeatureDefinition;
     };
-};
+}
 
 export type ModuleDescriptor = {
     path: string;
@@ -17,5 +27,23 @@ export type ModuleDescriptor = {
 }[];
 
 export type FeatureDefinition = {
-    split: Record<string, number>; // e.g., { "1.4": 50, "1.5_beta": 50 } for 50/50 A/B testing
+    /**
+     * Force a specific version of a feature.
+     * If not set, the version is selected based on the `split` configuration.
+     * @default false
+     */
+    enabled?: boolean;
+    /**
+     * Explicitly choose a feature version to load.
+     * If not set, the version is selected based on the `split` configuration.
+     * @default "latest"
+     * @example "1.4"
+     */
+    version?: string;
+    /**
+     * Split traffic between different versions of a feature.
+     * If omitted, an even split is assumed.
+     * @example { "1.0": 30, "1.1": 70 }
+     */
+    split?: Record<string, number>;
 };
