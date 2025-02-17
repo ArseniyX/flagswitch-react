@@ -1,12 +1,12 @@
 # FlagSwitch React
 
-FlagSwitch React is a feature flagging utility for React apps, engineered to dynamically load and manage feature components based on versioning and traffic splits. It’s built to help you roll out features progressively and perform A/B tests with minimal friction.
+FlagSwitch React is a feature flagging utility for React applications that dynamically loads and manages feature components based on versioning and traffic splits. Designed to simplify progressive rollouts and A/B testing, it allows you to experiment and iterate on features with minimal friction.
 
 ---
 
 ## Installation
 
-Install via npm:
+Install FlagSwitch React via npm:
 
 ```bash
 npm install flagswitch-react
@@ -18,27 +18,35 @@ npm install flagswitch-react
 
 ### Basic Setup
 
-Import and initialize the feature loader with global settings (if needed), then define your feature flags with a traffic split.
+Begin by importing and initializing the feature loader with any global settings you require. Then, define your feature flags along with their respective traffic splits.
 
-```tsx
-// index.ts
+**Create your feature configuration:**
+
+```ts
+// flag-switch.ts
 import { flagSwitch } from "flagswitch-react";
 
-// Initialize the feature loader with optional global settings.
-const loadFeatures = flagSwitch({
-  // global options can be set here
-});
-
-// Define feature flag configurations with traffic splits.
-const CheckoutFlow = loadFeatures({
-  split: {
-    "single-step-checkout": 30,  // 30% of users
-    "multi-step-checkout": 70,   // 70% of users
+export const loadFeatures = flagSwitch({
+  features: {
+    CheckoutFlow: {
+      enabled: true,
+      split: { MultiStepCheckout: 30, SingleStepCheckout: 70 },
+    },
   },
 });
 ```
 
-> **Important:** Ensure that feature components exist in the `/src` directory next to your `flagSwitch` call and are exported as the default export.
+**Load and export your feature flag:**
+
+```ts
+// index.ts
+import { loadFeatures } from "./flag-switch";
+
+// Load the CheckoutFlow feature configuration.
+export const CheckoutFlow = loadFeatures('CheckoutFlow');
+```
+
+> **Important:** Place your feature components in the `/src/features` directory next to your `loadFeatures` call and export each component as the default export.
 
 ---
 
@@ -46,76 +54,56 @@ const CheckoutFlow = loadFeatures({
 
 ### Global Options
 
-Customize how FlagSwitch React resolves and loads your feature components by passing global options to the `flagSwitch` function.
+Customize the loading behavior and feature definitions with global options. For example, you can define a custom naming pattern using a regular expression:
 
-```tsx
+```ts
 import { flagSwitch } from "flagswitch-react";
 
-const loadFeatures = flagSwitch({
-  path: {
-    postfix: "feature", // Appends 'feature' to the module path.
-    delimiter: ".",     // Uses '.' as the separator.
-  },
+export const loadFeatures = flagSwitch({
   namePattern: /(?<name>[^\/]+)$/, // Regex to extract the feature name from a file path.
-  flags: {
-    // Define any global flags that apply across multiple features.
-    [featureName]: {
-      // feature-specific global configuration
-    },
+  features: {
+    // Define global configurations for specific features.
+    // [featureName]: { ... },
   },
 });
 ```
 
-### Feature-Level Definitions
+### Using Environment Variables
 
-When you load features, you can specify how each feature should behave:
+You can also load feature definitions from environment variables. This approach is particularly useful for CI/CD pipelines or other scenarios where configuration is managed outside of your source code:
 
-#### Traffic Splitting (`split`)
+```ts
+import { flagSwitch } from "flagswitch-react";
 
-Distribute user traffic between different versions of a feature. If omitted, an even split is assumed.
-
-```tsx
-loadFeatures({
-  split: {
-    "single-step-checkout": 30,
-    "multi-step-checkout": 70,
-  },
+export const loadFeatures = flagSwitch({
+  features: import.meta.env.VITE_FEATURES,
 });
 ```
-
-#### Forcing a Specific Version (`version`)
-
-Explicitly choose a feature version to load. If not set, the version is selected based on the `split` configuration.
-
-```tsx
-loadFeatures({
-  version: "single-step-checkout", // Force the single-step version.
-});
-```
-
----
-
-## Additional Examples
-
-Explore more usage patterns and advanced configurations in the [examples](https://github.com/arseniyx/flagswitch-react/tree/main/examples) directory.
 
 ---
 
 ## Roadmap
 
-- **Webpack Support:** Integration for seamless bundling.
-- **Dynamic Feature Flag Fetching:** Load flags dynamically from external sources.
-- **Multi-Organization & Environment Support:** Configure flags across different environments.
+The following features are planned for future releases:
+
+- **Webpack Support:** Seamless integration with bundling processes.
+- **Multi-Organization & Environment Support:** Configure flags across various environments and organizational setups.
 - **Enhanced Versioning:** Support for multiple feature versions with metadata using the `name_version_metadata` pattern.
+
+---
+
+## Additional Examples
+
+For more advanced usage and configuration examples, please refer to the [examples directory](https://github.com/arseniyx/flagswitch-react/tree/main/examples) on GitHub.
 
 ---
 
 ## Contributing
 
-Contributions are highly encouraged! Please open an issue or submit a pull request on GitHub.
+Contributions are highly encouraged! If you’d like to improve FlagSwitch React, please open an issue or submit a pull request on [GitHub](https://github.com/arseniyx/flagswitch-react).
 
 ---
 
 ## License
 
-[MIT](https://choosealicense.com/licenses/mit/)
+FlagSwitch React is [MIT Licensed](https://choosealicense.com/licenses/mit/).
