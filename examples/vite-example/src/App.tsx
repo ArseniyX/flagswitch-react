@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { CheckoutFlow } from "./features/checkout-flow";
+import { CheckoutFlow } from "./features/CheckoutFlow";
 import "./App.css";
 
 function App() {
