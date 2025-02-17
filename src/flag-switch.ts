@@ -9,14 +9,11 @@ import { FlagSwitchGlobalOptions } from "./types";
  * @param {string} [flagSwitchOptions.path.postfix="feature"] - Sets the default postfix for the feature files.
  * @param {string} [flagSwitchOptions.path.delimiter="."] - Sets the delimiter used in the path.
  * @param {RegExp} [flagSwitchOptions.namePattern] - Regular expression to match the feature filename pattern. Defaults to matching filenames like 'featureName_version_metadata.ext'.
- * @param {Object} [flagSwitchOptions.flags] - An object where keys are feature names and values are their definitions.
  */
 export const flagSwitch = (flagSwitchOptions?: FlagSwitchGlobalOptions) => {
     return loadFeatures({
-        path: {
-            postfix: flagSwitchOptions?.path?.postfix || "feature",
-            delimiter: flagSwitchOptions?.path?.delimiter || ".",
-        },
         namePattern: flagSwitchOptions?.namePattern || /(?<name>[^\/]+)$/,
+        features: flagSwitchOptions?.features || {},
+        featuresFolderEnabled: flagSwitchOptions?.featuresFolderEnabled || true,
     });
 };
